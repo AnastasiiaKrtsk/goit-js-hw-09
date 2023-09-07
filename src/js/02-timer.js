@@ -1,6 +1,4 @@
-// Описаний в документації
 import flatpickr from 'flatpickr';
-// Додатковий імпорт стилів
 import 'flatpickr/dist/flatpickr.min.css';
 
 const datetimePicker = document.querySelector('#datetime-picker');
@@ -18,7 +16,7 @@ const options = {
   minuteIncrement: 1,
   onClose(selectedDates) {
     if (selectedDates[0] < new Date()) {
-      alert('Please choose a date in the future');
+      window.alert('Please choose a date in the future');
       datetimePicker.clear();
     } else {
       startButton.removeAttribute('disabled');
@@ -26,17 +24,17 @@ const options = {
   },
 };
 
+//*
 const fp = flatpickr(datetimePicker, options);
 
+//*
 function startTimer() {
   clearInterval(intervalId);
   const targetDate = fp.selectedDates[0];
-
   if (targetDate <= new Date()) {
     alert('Please choose a date in the future');
     return;
   }
-
   intervalId = setInterval(() => {
     const timeRemaining = targetDate - new Date();
     if (timeRemaining <= 0) {
@@ -49,9 +47,9 @@ function startTimer() {
   }, 1000);
   startButton.setAttribute('disabled', 'true');
 }
-
 startButton.addEventListener('click', startTimer);
 
+//*
 function updateTimerFields(days, hours, minutes, seconds) {
   timerFields[0].textContent = addLeadingZero(days);
   timerFields[1].textContent = addLeadingZero(hours);
@@ -59,10 +57,12 @@ function updateTimerFields(days, hours, minutes, seconds) {
   timerFields[3].textContent = addLeadingZero(seconds);
 }
 
+//*
 function addLeadingZero(value) {
   return String(value).padStart(2, '0');
 }
 
+//*
 function convertMs(ms) {
   const second = 1000;
   const minute = second * 60;
